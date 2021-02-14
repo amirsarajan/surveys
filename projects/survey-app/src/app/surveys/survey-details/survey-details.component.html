@@ -1,0 +1,12 @@
+<head>New Survey</head>
+<form>
+    <label>Title</label>
+    <input formControlName="title">
+    
+    <label>Description</label>
+    <input formControlName="description">
+
+    <ng-container formArrayName="questions"></ng-container>
+
+    <button type="button">Save</button>
+</form>
