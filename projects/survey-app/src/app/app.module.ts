@@ -5,19 +5,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {MatToolbarModule} from '@angular/material/toolbar';
-import { LayoutModule } from './layout/layout.module';
+import { HomeComponent } from './public/home/home.component';
+import { LoginComponent } from './public/login/login.component';
+import { SignupComponent } from './public/signup/signup.component';
+import { SurveysComponent } from './authorized/surveys/surveys.component';
+import { SurveyDetailsComponent } from './authorized/survey-details/survey-details.component';
+import { PublicModule } from './public/public.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+     
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    LayoutModule,
-    MatToolbarModule,
+    PublicModule
   ],
   providers: [],
   bootstrap: [AppComponent]
