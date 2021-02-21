@@ -13,28 +13,29 @@ export class LoginComponent implements OnInit {
   message: string | undefined;
 
   constructor(
-    private router:Router,
+    private router: Router,
     private authService: AuthorizationService) {
-      
+
     this.form = new FormGroup({
-      userName: new FormControl('userName', [Validators.required]),
-      password: new FormControl('password', [Validators.required]),
+      userName: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+      keep: new FormControl(false)
     });
   }
 
-  login(){
+  login() {
     this.message = "";
-    
-    let {userName,Password} = this.form.value;
-    this.authService.login(userName,Password)
-    .subscribe(auth =>{
-      if(auth && auth.token ){
-        this.router.navigate(["/surveys"]);
-      }else{
+
+    let { userName, password } = this.form.value;
+
+    this.authService.login(userName, password).subscribe(auth => {
+      if (auth && auth.token) {
+        this.router.navigate(['/authorized','surveys']);
+      } else {
         this.message = auth.message;
       }
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

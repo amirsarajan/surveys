@@ -1,1 +1,6 @@
-<p>surveys works!</p>
+<div class="row">
+    <div *ngFor="let survey of surveys$ | async" class="col-sm-4">
+       <app-survey-info [survey]="survey"></app-survey-info>
+    </div>
+</div>
+

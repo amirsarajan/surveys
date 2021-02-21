@@ -11,10 +11,10 @@ import { RedirectAuthorizedGuard } from '../services/guards/redirect-authorized.
 
 const routes: Routes = [
   {
-    path:'public',
-    canActivate:[RedirectAuthorizedGuard],
-    component:PublicContainerComponent,
-    children:[
+    path: 'public',
+    canActivate: [RedirectAuthorizedGuard],
+    component: PublicContainerComponent,
+    children: [
       {
         path: '',
         component: HomeComponent,
@@ -29,7 +29,7 @@ const routes: Routes = [
       },
     ]
   }
-  
+
 ];
 
 @NgModule({
@@ -44,7 +44,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
-  exports:[
+  exports: [
     RouterModule
   ]
 })

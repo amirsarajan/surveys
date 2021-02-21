@@ -5,6 +5,9 @@ import { SurveyDetailsComponent } from './survey-details/survey-details.componen
 import { RouterModule, Routes } from '@angular/router';
 import { AuthorizedContainerComponent } from './authorized-container/authorized-container.component';
 import { CreateComponent } from './create/create.component';
+import { SurveyInfoComponent } from './survey-info/survey-info.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SurveyDetailsResolverGuard } from './services/survey-details-resolver.guard';
 
 let reoutes: Routes = [
   {
@@ -16,6 +19,13 @@ let reoutes: Routes = [
         component: SurveysComponent,
       },
       {
+        path: 'details/:id',
+        resolve : {
+          survey: SurveyDetailsResolverGuard
+        },
+        component: SurveyDetailsComponent,
+      },
+      {
         path: 'create',
         component: CreateComponent,
       },
@@ -24,8 +34,19 @@ let reoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [SurveysComponent, SurveyDetailsComponent],
-  imports: [CommonModule, RouterModule.forChild(reoutes)],
-  exports: [SurveysComponent, SurveyDetailsComponent],
+  declarations: [
+    SurveysComponent,
+     SurveyDetailsComponent,
+     AuthorizedContainerComponent,
+     SurveyInfoComponent
+    ],
+  imports: [
+    CommonModule, 
+    RouterModule.forChild(reoutes),
+    ReactiveFormsModule
+  ],
+  exports: [
+    RouterModule
+  ],
 })
-export class AuthorizedModule {}
+export class AuthorizedModule { }

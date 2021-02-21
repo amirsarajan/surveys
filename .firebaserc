@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "agile-surveys": {
+      "hosting": {
+        "surveyApp": [
+          "agile-surveys"
+        ]
+      }
+    }
+  }
+}

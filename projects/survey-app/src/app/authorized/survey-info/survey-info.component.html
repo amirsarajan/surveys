@@ -1,0 +1,12 @@
+<div class="card"
+     style="width: 18rem;">
+   <div class="card-body">
+      <h5 class="card-title">{{survey?.title}}</h5>
+      <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+      <p class="card-text">{{survey?.desc}}</p>
+      <a href="#"
+         class="card-link">Card link</a>
+      <a [routerLink]="['/authorized/details',survey?.id]"         
+         class="card-link">details</a>
+   </div>
+</div>

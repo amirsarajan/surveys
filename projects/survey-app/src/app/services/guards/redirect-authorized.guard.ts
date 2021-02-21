@@ -21,7 +21,7 @@ export class RedirectAuthorizedGuard implements CanActivate {
         first(),
         map(isLoggedin => {
           if (isLoggedin) {
-            this.router.navigate(['/authorized', 'surveys']);
+            this.router.navigate(['authorized', 'surveys']);
             return false;//disables the current routing
           } else {
             return true;//keep going

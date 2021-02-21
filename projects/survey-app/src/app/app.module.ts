@@ -11,6 +11,7 @@ import { SignupComponent } from './public/signup/signup.component';
 import { SurveysComponent } from './authorized/surveys/surveys.component';
 import { SurveyDetailsComponent } from './authorized/survey-details/survey-details.component';
 import { PublicModule } from './public/public.module';
+import { AuthorizedModule } from './authorized/authorized.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { PublicModule } from './public/public.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    PublicModule
+    PublicModule,
+    AuthorizedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
