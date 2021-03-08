@@ -1,9 +1,6 @@
 import {Question} from './question'
+import { SurveyTitle } from './survey-title';
 
-export interface Survey{
-    id:string;
-    title:string;
-    desc:string;
-    questions:string[];
-    isPublished:boolean;
+export interface Survey extends SurveyTitle{   
+    questions:Question[];
 }

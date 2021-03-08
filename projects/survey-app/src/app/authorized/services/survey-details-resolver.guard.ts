@@ -14,8 +14,7 @@ export class SurveyDetailsResolverGuard implements Resolve<Survey | null> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Survey | null | Observable<Survey | null> {
-    return this.surveyService.getSurvey$(route.params.id).pipe(
-      first(),
+    return this.surveyService.getSurvey(route.params.id).pipe(      
       map( s => !!s ? s: null )
     );
   } 

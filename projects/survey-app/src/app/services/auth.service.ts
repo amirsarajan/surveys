@@ -8,12 +8,14 @@ import { UserInfo } from './models/user-info';
 
 let users: User[] = [
   {
+    id : '1',
     name: 'test1',
     userName: 'test1',
     password: '123',
     email: 'test1@gmail.com',
   },
   {
+    id: '2',
     name: 'test2',
     userName: 'test2',
     password: '456',

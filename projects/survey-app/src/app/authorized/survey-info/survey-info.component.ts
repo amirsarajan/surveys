@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Survey } from '../models/survey';
+import { SurveyTitle } from '../models/survey-title';
 
 @Component({
   selector: 'app-survey-info',
@@ -7,7 +8,7 @@ import { Survey } from '../models/survey';
   styleUrls: ['./survey-info.component.css']
 })
 export class SurveyInfoComponent implements OnInit {
-  @Input() survey: Survey|undefined;
+  @Input() survey: SurveyTitle|undefined;
 
   constructor() { }
 

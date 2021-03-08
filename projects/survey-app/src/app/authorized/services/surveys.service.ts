@@ -1,66 +1,46 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import { Survey } from '../models/survey';
-
-let testSurveys: Survey[] = [
-  {
-    id: (new Date()).getTime().toString(),
-    title: 'test servey1',
-    desc: 'conducts a servey about the underage alochole consumption',
-    questions: [
-      'Did you like this product?',
-      'How satisfied are you with this product?',
-      'would you recommend this product to a friend?',
-      'would you recommend the company to a friend?',
-      'Did it you help accomplish your goals?',
-      'How satisfied are you with our customer support?'
-    ],
-    isPublished: true,
-  },
-  {
-    id: (new Date()).getTime().toString(),
-    title: 'test servey2',
-    desc: 'conducts a servey about the underage alochole consumption',
-    questions: [
-      'Did you like this product?',
-      'How satisfied are you with this product?',
-      'would you recommend this product to a friend?',
-      'would you recommend the company to a friend?',
-      'Did it you help accomplish your goals?',
-      'How satisfied are you with our customer support?'
-    ],
-    isPublished: false,
-  }
-];
+import { SurveyTitle } from '../models/survey-title';
+import { SurveysHttpService } from './surveys-http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SurveysService {
 
-  _surveys: Survey[] = testSurveys;
-  _surveys$: BehaviorSubject<Survey[]> = new BehaviorSubject<Survey[]>([]);
+  _surveys$: BehaviorSubject<SurveyTitle[]> = new BehaviorSubject<SurveyTitle[]>([]);
+  _currentSurvey$: BehaviorSubject<Survey| undefined> = new BehaviorSubject<Survey|undefined>(undefined);
 
-  constructor() {
-    this._surveys$.next(this._surveys);
+  constructor(private surveysHttpService:SurveysHttpService) {    
   }
 
-  get surveys$(): Observable<Survey[]> {
+  get surveys$(): Observable<SurveyTitle[]> {
     return this._surveys$;
   }
 
-  getSurvey$(id: string): Observable<Survey | undefined> {
-    return this.surveys$.pipe(
-      map(s => s.filter(item => item.id === id)),
-      map(s => s.length > 0 ? s[0] : undefined)
-    )
+  getSurvey(id: string): Observable<Survey|undefined> {
+    return this.surveysHttpService.getSurvey(id)
+    .pipe(
+      tap(s => this._currentSurvey$.next(s))
+    );   
+  }
+
+  getAuthorSurveys(userId: string): Observable<SurveyTitle[]|undefined> {
+    return this.surveysHttpService.getAuthorSurveys(userId)
+    .pipe(
+      tap(surveys => this._surveys$.next(surveys))
+    );   
   }
 
   add(survey: Survey) {
-    survey.id = (new Date()).getTime().toString();
-    this._surveys.push(survey);
-    this._surveys$.next(this._surveys);
+    this.surveysHttpService.create(survey)
+    .pipe(
+      tap(s => {
+        this._currentSurvey$.next(s);      
+      })
+    );   
   }
 
 }

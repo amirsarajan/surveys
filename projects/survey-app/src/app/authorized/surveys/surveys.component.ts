@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Survey } from '../models/survey';
+import { SurveyTitle } from '../models/survey-title';
 import { SurveysService } from '../services/surveys.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class SurveysComponent implements OnInit {
 
   }
 
-  get surveys$():Observable<Survey[]>{
+  get surveys$():Observable<SurveyTitle[]>{
     return this.surveysService.surveys$;
   }
 
