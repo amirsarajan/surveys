@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Survey } from '../models/survey';
-import { SurveysService } from '../services/surveys.service';
+import { Survey } from '../../models/survey';
+import { SurveysService } from '../../services/surveys.service';
 
 @Component({
-  selector: 'app-survey-details',
-  templateUrl: './survey-details.component.html',
-  styleUrls: ['./survey-details.component.css']
+  selector: 'app-edit-survey',
+  templateUrl: './edit-survey.component.html',
+  styleUrls: ['./edit-survey.component.css']
 })
-export class SurveyDetailsComponent implements OnInit {
+export class EditSurveyComponent implements OnInit {
   form: FormGroup;
   survey: Survey | undefined;
 
@@ -18,10 +18,13 @@ export class SurveyDetailsComponent implements OnInit {
     private surveysService: SurveysService) {
 
     this.form = new FormGroup({
+      id: new FormControl({ value: '', disabled: true }, [Validators.required, Validators.maxLength(100)],),
       title: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       desc: new FormControl('', [Validators.required]),
       questions: new FormArray([], [Validators.required])
     });
+
+    this.form.disable();
   }
 
   get questionsControls() {
@@ -37,11 +40,24 @@ export class SurveyDetailsComponent implements OnInit {
     this.routeSnapshot.data.subscribe(
       d => {
         if (d && d.survey) {
-          this.form.patchValue(d.survey);
+          this.survey = d.survey;
+          this.updateForm(d.survey);
         }
       }
     );
+  }
 
+  updateForm(survey: Survey) {
+    this.form.patchValue(survey);
+    survey.questions.forEach(q => {
+      (this.form.controls.questions as FormArray)
+      .push(new FormControl(q.content))
+    });
+
+    if (!survey?.isPublished) {
+      this.form.controls.title.enable();
+      this.form.controls.descr.enable();
+    }
   }
 
 }

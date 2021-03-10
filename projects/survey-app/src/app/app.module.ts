@@ -5,13 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { HomeComponent } from './public/home/home.component';
-import { LoginComponent } from './public/login/login.component';
-import { SignupComponent } from './public/signup/signup.component';
-import { SurveysComponent } from './authorized/surveys/surveys.component';
-import { SurveyDetailsComponent } from './authorized/survey-details/survey-details.component';
 import { PublicModule } from './public/public.module';
 import { AuthorizedModule } from './authorized/authorized.module';
+import { IdentityService } from './services/identity.service';
 
 @NgModule({
   declarations: [
@@ -28,4 +24,8 @@ import { AuthorizedModule } from './authorized/authorized.module';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private identityService:IdentityService){
+    identityService.restore();
+  }
+ }

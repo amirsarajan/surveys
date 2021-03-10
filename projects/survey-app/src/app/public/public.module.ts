@@ -4,15 +4,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { SurveysComponent } from '../authorized/surveys/surveys.component';
+import { SurveysComponent } from '../authorized/components/surveys/surveys.component';
 import { SignupComponent } from './signup/signup.component';
 import { PublicContainerComponent } from './public-container/public-container.component';
-import { RedirectAuthorizedGuard } from '../services/guards/redirect-authorized.guard';
+import { RedirectAuthorizedGuard as RedirectIfAuthorizedGuard } from '../services/guards/redirect-authorized.guard';
 
 const routes: Routes = [
   {
     path: 'public',
-    canActivate: [RedirectAuthorizedGuard],
+    canActivate: [RedirectIfAuthorizedGuard],
     component: PublicContainerComponent,
     children: [
       {

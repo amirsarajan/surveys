@@ -13,7 +13,7 @@ export class SurveysHttpService {
   constructor(private client: HttpClient) { }
 
   public getAuthorSurveys(userId: string): Observable<SurveyTitle[]> {
-    return this.client.get<Survey[]>(`${environment}surveys?userid=${userId}`, {
+    return this.client.get<SurveyTitle[]>(`${environment.baseUrl}/surveys?userid=${userId}`, {
       headers: new HttpHeaders({
         "Content-Type": 'application/json'
       })

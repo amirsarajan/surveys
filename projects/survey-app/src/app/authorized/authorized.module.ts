@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SurveysComponent } from './surveys/surveys.component';
-import { SurveyDetailsComponent } from './survey-details/survey-details.component';
+import { SurveysComponent } from './components/surveys/surveys.component';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthorizedContainerComponent } from './authorized-container/authorized-container.component';
-import { CreateComponent } from './create/create.component';
-import { SurveyInfoComponent } from './survey-info/survey-info.component';
+import { AuthorizedContainerComponent } from './components/authorized-container/authorized-container.component';
+import { CreateComponent } from './components/create/create.component';
+import { SurveyInfoComponent } from './components/survey-info/survey-info.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SurveyDetailsResolverGuard } from './services/survey-details-resolver.guard';
+import { HttpClientModule } from '@angular/common/http';
+import { EditSurveyComponent } from './components/edit-survey/edit-survey.component';
 
 let reoutes: Routes = [
   {
@@ -23,7 +24,7 @@ let reoutes: Routes = [
         resolve : {
           survey: SurveyDetailsResolverGuard
         },
-        component: SurveyDetailsComponent,
+        component: EditSurveyComponent,
       },
       {
         path: 'create',
@@ -36,14 +37,15 @@ let reoutes: Routes = [
 @NgModule({
   declarations: [
     SurveysComponent,
-     SurveyDetailsComponent,
+     EditSurveyComponent,
      AuthorizedContainerComponent,
      SurveyInfoComponent
     ],
   imports: [
     CommonModule, 
     RouterModule.forChild(reoutes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   exports: [
     RouterModule

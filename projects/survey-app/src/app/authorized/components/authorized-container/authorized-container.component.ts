@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthorizationService } from '../../services/auth.service';
+import { IdentityService } from '../../../services/identity.service';
 
 @Component({
   selector: 'app-authorized-container',
@@ -8,7 +8,7 @@ import { AuthorizationService } from '../../services/auth.service';
 })
 export class AuthorizedContainerComponent implements OnInit {
 
-  constructor(private authService:AuthorizationService) { }
+  constructor(private authService:IdentityService) { }
 
   ngOnInit(): void {
   }

@@ -5,10 +5,11 @@ import { delay, filter, map, switchMap } from 'rxjs/operators';
 import { AuthInfo } from './models/auth-info';
 import { User } from './models/user';
 import { UserInfo } from './models/user-info';
+import { AuthStoreService } from './store.service';
 
 let users: User[] = [
   {
-    id : '1',
+    id: '1',
     name: 'test1',
     userName: 'test1',
     password: '123',
@@ -26,30 +27,54 @@ let users: User[] = [
 @Injectable({
   providedIn: 'root',
 })
-export class AuthorizationService {
+export class IdentityService {
+  readonly authKey: string = 'auth';
 
-  readonly authKey:string ='auth';
-  private _auth$: BehaviorSubject<AuthInfo | undefined> = new BehaviorSubject<AuthInfo | undefined>(undefined);
-
-  constructor(private router:Router) { }
+  constructor(
+    private authStore: AuthStoreService,
+    private router: Router) { }
 
   public get auth$(): Observable<AuthInfo | undefined> {
-    return this._auth$.pipe(
-      map((auth) => {
-        //try to retrieve it from local storage
-        if (!auth) {
-          auth = this.tryRestore();
-        }
-        return auth;
-      })
-    );
+    return this.authStore.auth$;
   }
 
   isLoggedin$(): Observable<boolean> {
     return this.auth$.pipe(map((auth) => this.isValid(auth)));
   }
 
-  private tryRestore(): AuthInfo | undefined {
+  restore() {
+    let auth = this.restoreFromLocalStorage();
+    if (auth) {
+      this.authStore.updateAuthInfo(auth);
+    }
+  }
+
+  public login(userName: string, password: string): Observable<AuthInfo> {
+    return of(
+      users.filter(
+        (user) => user.userName === userName && user.password === password
+      )
+    ).pipe(
+      //delay(5000),
+      map(([user]) => {
+        if (user) {
+          let authInfo = this.createAuth(user);
+          this.persistAuthInfo(authInfo);
+          this.authStore.updateAuthInfo(authInfo);
+          return authInfo;
+        }
+        return { message: "Username and password didn't match" };
+      })
+    );
+  }
+
+  public logout() {
+    this.clearAuth();
+    this.authStore.updateAuthInfo(undefined);
+    this.router.navigate(['']);
+  }
+
+  private restoreFromLocalStorage(): AuthInfo | undefined {
     let strAuth = localStorage.getItem(this.authKey);
     if (!strAuth)
       return undefined;
@@ -67,7 +92,7 @@ export class AuthorizationService {
     return tempauth;
   }
 
-  private storeAuthInfo(auth: AuthInfo) {
+  private persistAuthInfo(auth: AuthInfo) {
     localStorage.setItem(this.authKey, JSON.stringify(auth));
   }
 
@@ -82,37 +107,7 @@ export class AuthorizationService {
     return false;
   }
 
-  public login(userName: string, password: string): Observable<AuthInfo> {
-    return of(
-      users.filter(
-        (user) => user.userName === userName && user.password === password
-      )
-    ).pipe(
-      //delay(5000),
-      map(([user]) => {
-        if (user) {
-          let authInfo = this.createAuth(user);
-          return authInfo;
-        }
-        return { message: "Username and password didn't match" };
-      }),
-      map((auth) => {
-        if (!!auth && !!auth.token) {
-          this.storeAuthInfo(auth);
-          this._auth$.next(auth);
-        }
-        return auth;
-      })
-    );
-  }
-
-  public logout() {
-    this.clearAuth();
-    this._auth$.next(undefined);
-    this.router.navigate(['']);
-  }
-
-  clearAuth() {
+  private clearAuth() {
     localStorage.removeItem(this.authKey);
   }
 
@@ -122,6 +117,7 @@ export class AuthorizationService {
 
     return {
       userInfo: {
+        id: user.id,
         name: user.name,
         email: user.email,
       },

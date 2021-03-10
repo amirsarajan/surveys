@@ -3,5 +3,6 @@ export interface SurveyTitle {
     id: string;
     title: string;
     desc: string;
+    isPublished:boolean;
     creationTime: string;
 }

@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col">
+        <table class="table">
+            <thead>
+                <th>#</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Is Published</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let survey of surveys$ | async" class="col-sm-4">
+                    <td>
+                        <a [routerLink]="['/authorized','details',survey.id]">{{survey.id}}</a>
+                    </td>
+                    <td>
+                        {{survey.title}}
+                    </td>
+                    <td>
+                        {{survey.desc}}
+                    </td>
+                    <td>
+                        {{survey.creationTime}}
+                    </td>
+                    <td>
+                        {{survey.isPublished}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

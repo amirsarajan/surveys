@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first, map, tap } from 'rxjs/operators';
-import { AuthorizationService } from '../auth.service';
+import { IdentityService } from '../identity.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RedirectAuthorizedGuard implements CanActivate {
   constructor(
-    private authorizationService: AuthorizationService,
+    private authorizationService: IdentityService,
     private router: Router) {
   }
   canActivate(

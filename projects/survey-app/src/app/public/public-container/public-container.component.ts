@@ -7,7 +7,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AuthorizationService } from '../../services/auth.service';
+import { IdentityService } from '../../services/identity.service';
 
 @Component({
   selector: 'app-public-container',
@@ -16,7 +16,7 @@ import { AuthorizationService } from '../../services/auth.service';
 })
 export class PublicContainerComponent implements OnInit {
   constructor(
-    private authService: AuthorizationService,
+    private authService: IdentityService,
     private activatedRoute: ActivatedRoute
   ) {}
 
