@@ -9,7 +9,7 @@ import { SurveyTitle } from '../models/survey-title';
   providedIn: 'root'
 })
 export class SurveysHttpService {
- 
+
   constructor(private client: HttpClient) { }
 
   public getAuthorSurveys(userId: string): Observable<SurveyTitle[]> {
@@ -21,15 +21,15 @@ export class SurveysHttpService {
   }
 
   public getSurvey(id: string): Observable<Survey> {
-    return this.client.get<Survey>(`http://localhost:5000/surveys/${id}`, {
+    return this.client.get<Survey>(`${environment.baseUrl}/surveys/${id}`, {
       headers: new HttpHeaders({
         "Content-Type": 'application/json'
       })
     });
   }
 
-  create(survey: Survey):Observable<Survey> {
-    return this.client.post<Survey>('http://localhost:5000/surveys',      survey, {
+  create(survey: Survey): Observable<Survey> {
+    return this.client.post<Survey>('${environment.baseUrl}/surveys', survey, {
       headers: new HttpHeaders({
         "Content-Type": 'application/json'
       })
