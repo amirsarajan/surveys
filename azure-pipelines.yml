@@ -20,3 +20,9 @@ steps:
     npm install
     ng build --prod
   displayName: 'npm install and build'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'dist'
+    ArtifactName: 'webApp'    
+    publishLocation: 'Container' # conatiner = azure pipeline
