@@ -21,8 +21,15 @@ steps:
     ng build --prod
   displayName: 'npm install and build'
 
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: 'dist/surveyApp'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: 'dist'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     ArtifactName: 'webApp'    
     publishLocation: 'Container' # conatiner = azure pipeline
