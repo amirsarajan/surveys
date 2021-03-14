@@ -16,8 +16,11 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    npm install -g @angular/cli
+    echo "installing angular ..."
+    npm install  -g @angular/cli
+    echo 'restoring packages ...'
     npm install
+    echo 'building for production mode'
     ng build --prod
   displayName: 'npm install and build'
 
@@ -28,6 +31,7 @@ steps:
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     replaceExistingArchive: true
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
