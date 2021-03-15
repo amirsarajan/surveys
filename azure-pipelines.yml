@@ -16,13 +16,24 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    npm install -g @angular/cli
+    echo "installing angular ..."
+    npm install  -g @angular/cli
+    echo 'restoring packages ...'
     npm install
+    echo 'building for production mode'
     ng build --prod
   displayName: 'npm install and build'
 
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: 'dist/surveyApp'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: 'dist'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     ArtifactName: 'webApp'    
     publishLocation: 'Container' # conatiner = azure pipeline
