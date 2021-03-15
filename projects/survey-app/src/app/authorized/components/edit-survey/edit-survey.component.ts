@@ -22,11 +22,13 @@ export class EditSurveyComponent implements OnInit {
       title: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       desc: new FormControl('', [Validators.required]),
       questions: new FormArray([], [Validators.required])
-    });
-
-    this.form.disable();
+    });  
   }
 
+  isEditable(){
+    return !this.survey?.isPublished;
+  }
+  
   get questionsControls() {
     return (this.form.get('questions') as FormArray).controls;
   }
@@ -54,9 +56,10 @@ export class EditSurveyComponent implements OnInit {
       .push(new FormControl(q.content))
     });
 
-    if (!survey?.isPublished) {
-      this.form.controls.title.enable();
-      this.form.controls.descr.enable();
+    if (survey?.isPublished) {
+      this.form.disable();
+    }else{
+      this.form.enable();
     }
   }
 

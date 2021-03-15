@@ -21,7 +21,8 @@
             "aot": true,
             "assets": [
               "projects/survey-app/src/favicon.ico",
-              "projects/survey-app/src/assets"
+              "projects/survey-app/src/assets",
+              "projects/survey-app/src/web.config"
             ],
             "styles": [             
               "./node_modules/bootstrap/dist/css/bootstrap.css",

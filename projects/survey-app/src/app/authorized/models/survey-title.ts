@@ -4,5 +4,5 @@ export interface SurveyTitle {
     title: string;
     desc: string;
     isPublished:boolean;
-    creationTime: string;
+    creationTime: Date;
 }

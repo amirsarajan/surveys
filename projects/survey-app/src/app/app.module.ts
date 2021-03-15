@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PublicModule } from './public/public.module';
 import { AuthorizedModule } from './authorized/authorized.module';
 import { IdentityService } from './services/identity.service';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { IdentityService } from './services/identity.service';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private identityService:IdentityService){
+  constructor(identityService:IdentityService){
+    console.log('environment settings:',environment);
     identityService.restore();
   }
  }

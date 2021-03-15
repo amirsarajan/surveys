@@ -1,3 +1,9 @@
 {
-    "editor.fontSize": 16
+    "editor.fontSize": 16,
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/4be8329a-333d-43f2-8c82-1fb0492682d8/resourceGroups/surveys-group/providers/Microsoft.Web/sites/surveys-app",
+    "appService.deploySubpath": "dist\\surveyApp"
 }

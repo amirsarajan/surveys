@@ -37,8 +37,8 @@
     </ng-container>
 
     <div>
-        <button class="btn btn-primary" type="button">Save</button>&nbsp;
-        <button class="btn btn-success" type="button" (click)="add()">Add</button>
+        <button [disabled]="isEditable" class="btn btn-primary" type="button">Save</button>&nbsp;
+        <button [disabled]="isEditable" class="btn btn-success" type="button" (click)="add()">Add</button>
     </div>
 
 
