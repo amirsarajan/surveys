@@ -20,7 +20,8 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     BrowserAnimationsModule,
     PublicModule,
-    AuthorizedModule
+    AuthorizedModule,
+  
   ],
   providers: [],
   bootstrap: [AppComponent]

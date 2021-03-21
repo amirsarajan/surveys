@@ -9,6 +9,13 @@ import { SignupComponent } from './signup/signup.component';
 import { PublicContainerComponent } from './public-container/public-container.component';
 import { RedirectAuthorizedGuard as RedirectIfAuthorizedGuard } from '../services/guards/redirect-authorized.guard';
 
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatCheckboxModule} from '@angular/material/checkbox'
+import {MatInputModule} from '@angular/material/input';
+
 const routes: Routes = [
   {
     path: 'public',
@@ -42,7 +49,13 @@ const routes: Routes = [
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatCheckboxModule,
+    MatInputModule
   ],
   exports: [
     RouterModule

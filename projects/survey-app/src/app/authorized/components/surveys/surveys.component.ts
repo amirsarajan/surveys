@@ -13,6 +13,9 @@ import { SurveysService } from '../../services/surveys.service';
 })
 export class SurveysComponent implements OnInit {
 
+  displayedColumns: string[] = ['id', 'title', 'desc',  'creationTime', 'isPublished'];
+  surveys: SurveyTitle[] = [];
+
   constructor(
     private surveysStore: SurveysStoreService,
     private authStore: AuthStoreService,
@@ -20,6 +23,7 @@ export class SurveysComponent implements OnInit {
 
     surveysStore.surveys$.subscribe(surveys => {
       console.log(surveys);
+      this.surveys = surveys;
     })
   }
 
@@ -39,8 +43,8 @@ export class SurveysComponent implements OnInit {
     ).subscribe()
   }
 
-  add(){
-    
+  add() {
+
   }
 
 }

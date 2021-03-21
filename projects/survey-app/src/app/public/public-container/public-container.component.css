@@ -1,3 +1,11 @@
 .content{
     margin-top: 70px;
 }
+
+.spacer{
+    flex: 1 1 auto;
+}
+
+.button-spacer{
+    margin-left: 5px;
+}

@@ -37,5 +37,9 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  get keep(){
+    return this.form.controls.keep as FormControl;
+  }
+
   ngOnInit(): void { }
 }

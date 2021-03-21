@@ -24,7 +24,8 @@
               "projects/survey-app/src/assets",
               "projects/survey-app/src/web.config"
             ],
-            "styles": [             
+            "styles": [     
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",        
               "./node_modules/bootstrap/dist/css/bootstrap.css",
               "projects/survey-app/src/styles.css"
             ],
@@ -89,7 +90,8 @@
               "projects/survey-app/src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
               "projects/survey-app/src/styles.css"
             ],
             "scripts": []

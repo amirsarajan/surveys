@@ -1,33 +1,39 @@
 <div class="row">
     <div class="col">
-        <button class="btn btn-success">Add</button>
-        <table class="table">
-            <thead>
-                <th>#</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Date</th>
-                <th>Is Published</th>
-            </thead>
-            <tbody>
-                <tr *ngFor="let survey of surveys$ | async" class="col-sm-4">
-                    <td>
-                        <a [routerLink]="['/authorized','details',survey.id]">{{survey.id}}</a>
-                    </td>
-                    <td>
-                        {{survey.title}}
-                    </td>
-                    <td>
-                        {{survey.desc}}
-                    </td>
-                    <td>
-                        {{survey.creationTime.toString()}}
-                    </td>
-                    <td>
-                        {{survey.isPublished}}
-                    </td>
-                </tr>
-            </tbody>
+        
+        <table mat-table [dataSource]="surveys$">
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> # </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef> title </th>
+                <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="desc">
+                <th mat-header-cell *matHeaderCellDef> Desc </th>
+                <td mat-cell *matCellDef="let element"> {{element.desc}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="creationTime">
+                <th mat-header-cell *matHeaderCellDef> Date </th>
+                <td mat-cell *matCellDef="let element"> {{element.creationTime}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="isPublished">
+                <th mat-header-cell *matHeaderCellDef> Published </th>
+                <td mat-cell *matCellDef="let element"> {{element.isPublished}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+
+        <button mat-button color="primary">
+            <mat-icon>add</mat-icon>
+        </button>
+      
     </div>
 </div>

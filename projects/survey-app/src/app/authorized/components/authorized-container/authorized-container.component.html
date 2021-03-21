@@ -1,22 +1,12 @@
 
- <nav class="navbar navbar-expand navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand"
-           routerLink="/authorized/surveys">Surveys</a>
-
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <button type="button"
-                        class="btn btn-link"
-                        (click)="logout()">Log out</button>
-
-            </li>
-        </ul>
-
+<mat-toolbar color="primary">
+    <span>My Application</span>
+    <span class="spacer"></span>
+    <div class="button-spacer">       
+        <a mat-button (click)="logout()">Log out</a>
     </div>
-</nav>
+</mat-toolbar>
 
-<div class="content">
-   
+<div class="container">
     <router-outlet></router-outlet>
 </div>
