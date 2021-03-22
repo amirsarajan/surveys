@@ -4,17 +4,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { SurveysComponent } from '../authorized/components/surveys/surveys.component';
 import { SignupComponent } from './signup/signup.component';
 import { PublicContainerComponent } from './public-container/public-container.component';
 import { RedirectAuthorizedGuard as RedirectIfAuthorizedGuard } from '../services/guards/redirect-authorized.guard';
+import { MaterialImportModule } from '../material-import.module';
 
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatCheckboxModule} from '@angular/material/checkbox'
-import {MatInputModule} from '@angular/material/input';
 
 const routes: Routes = [
   {
@@ -50,12 +44,7 @@ const routes: Routes = [
     CommonModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatCheckboxModule,
-    MatInputModule
+    MaterialImportModule
   ],
   exports: [
     RouterModule

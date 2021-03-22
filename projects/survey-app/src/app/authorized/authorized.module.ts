@@ -9,13 +9,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SurveyDetailsResolverGuard } from './services/survey-details-resolver.guard';
 import { HttpClientModule } from '@angular/common/http';
 import { EditSurveyComponent } from './components/edit-survey/edit-survey.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatInputModule } from '@angular/material/input';
-import {MatTableModule} from '@angular/material/table';
+import { MaterialImportModule } from '../material-import.module';
+import { SurveysListGuard } from './services/surveys-list.guard';
 
 let reoutes: Routes = [
   {
@@ -24,7 +19,10 @@ let reoutes: Routes = [
     children: [
       {
         path: 'surveys',
-        component: SurveysComponent,
+        component: SurveysComponent,        
+        resolve:{
+          surveys: SurveysListGuard
+        }
       },
       {
         path: 'details/:id',
@@ -53,13 +51,7 @@ let reoutes: Routes = [
     RouterModule.forChild(reoutes),
     ReactiveFormsModule,
     HttpClientModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatCheckboxModule,
-    MatInputModule,
-    MatTableModule
+    MaterialImportModule
   ],
   exports: [
     RouterModule

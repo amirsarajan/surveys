@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { filter, switchMap, tap } from 'rxjs/operators';
 import { AuthStoreService } from '../../../services/store.service';
@@ -17,6 +18,7 @@ export class SurveysComponent implements OnInit {
   surveys: SurveyTitle[] = [];
 
   constructor(
+    private activatedRoute:ActivatedRoute,
     private surveysStore: SurveysStoreService,
     private authStore: AuthStoreService,
     private surveysService: SurveysService) {
@@ -32,15 +34,18 @@ export class SurveysComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authStore.auth$.pipe(
-      filter(auth => !!auth && !!auth.userInfo),
-      switchMap(auth => {
-        if (auth && auth.userInfo) {
-          return this.surveysService.getAuthorSurveys(auth?.userInfo?.id);
-        }
-        return of(undefined);
-      })
-    ).subscribe()
+    // this.activatedRoute.data.subscribe(data =>{
+
+    // });
+    // this.authStore.auth$.pipe(
+    //   filter(auth => !!auth && !!auth.userInfo),
+    //   switchMap(auth => {
+    //     if (auth && auth.userInfo) {
+    //       return this.surveysService.getAuthorSurveys(auth?.userInfo?.id);
+    //     }
+    //     return of(undefined);
+    //   })
+    // ).subscribe()
   }
 
   add() {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { from, of, Subject, Observable, BehaviorSubject } from 'rxjs';
+import { from, of, Subject, Observable, BehaviorSubject, EMPTY } from 'rxjs';
 import { delay, filter, map, switchMap } from 'rxjs/operators';
 import { AuthInfo } from './models/auth-info';
 import { User } from './models/user';
@@ -34,9 +34,9 @@ export class IdentityService {
     private authStore: AuthStoreService,
     private router: Router) { }
 
-  public get auth$(): Observable<AuthInfo | undefined> {
+  public get auth$(): Observable<AuthInfo> {
     return this.authStore.auth$;
-  }
+  } 
 
   isLoggedin$(): Observable<boolean> {
     return this.auth$.pipe(map((auth) => this.isValid(auth)));
@@ -70,7 +70,7 @@ export class IdentityService {
 
   public logout() {
     this.clearAuth();
-    this.authStore.updateAuthInfo(undefined);
+    this.authStore.updateAuthInfo(null);
     this.router.navigate(['']);
   }
 
