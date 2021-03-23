@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl : 'https://surveysapi.azurewebsites.net'
+  baseUrl : 'https://surveys-api-webapp.azurewebsites.net'
 };
