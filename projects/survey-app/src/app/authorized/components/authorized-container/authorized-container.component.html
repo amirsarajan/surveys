@@ -1,12 +1,14 @@
-
 <mat-toolbar color="primary">
-    <span>My Application</span>
-    <span class="spacer"></span>
+    <button routerLink="/authorized/surveys" mat-icon-button  aria-label="surveys list">
+        <mat-icon>home</mat-icon>
+    </button>
+    <span>Surveys</span>
+    <!-- <span class="spacer"></span>
     <div class="button-spacer">       
         <a mat-button (click)="logout()">Log out</a>
-    </div>
+    </div> -->
 </mat-toolbar>
 
-<div class="container">
+<div class="container-fluid">
     <router-outlet></router-outlet>
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { filter, switchMap, tap } from 'rxjs/operators';
@@ -6,6 +7,7 @@ import { AuthStoreService } from '../../../services/store.service';
 import { SurveyTitle } from '../../models/survey-title';
 import { SurveysStoreService } from '../../services/surveys-store.service';
 import { SurveysService } from '../../services/surveys.service';
+import { EditSurveyComponent } from '../edit-survey/edit-survey.component';
 
 @Component({
   selector: 'app-surveys',
@@ -14,14 +16,15 @@ import { SurveysService } from '../../services/surveys.service';
 })
 export class SurveysComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'title', 'desc',  'creationTime', 'isPublished'];
+  displayedColumns: string[] = ['id', 'title', 'desc', 'creationTime', 'isPublished'];
   surveys: SurveyTitle[] = [];
 
   constructor(
-    private activatedRoute:ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private surveysStore: SurveysStoreService,
     private authStore: AuthStoreService,
-    private surveysService: SurveysService) {
+    private surveysService: SurveysService,
+    private dialog: MatDialog) {
 
     surveysStore.surveys$.subscribe(surveys => {
       console.log(surveys);
@@ -48,8 +51,30 @@ export class SurveysComponent implements OnInit {
     // ).subscribe()
   }
 
-  add() {
+  openEdit(surveyTitle: SurveyTitle) {
+    this.surveysService.getSurvey(surveyTitle.id)
+      .subscribe(
+        (survey) => {
+          this.dialog.open(EditSurveyComponent, {
+            width: '100%',
+            height: 'auto',
+            data: survey
+          }).beforeClosed()
+            .subscribe((res: boolean) => {
+              console.log(`EditSurvey result => ${res}`);
+            });
+        }
+      );
+  }
 
+  openNew() {
+    this.dialog.open(EditSurveyComponent, {
+      width: '100%',
+      height: 'auto',
+    }).beforeClosed()
+      .subscribe((res: boolean) => {
+        console.log(`EditSurvey result => ${res}`);
+      });
   }
 
 }

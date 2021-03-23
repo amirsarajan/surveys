@@ -5,41 +5,50 @@
 
 <form [formGroup]="form">
 
-    <div class="mb-3 row">
-        <label class="form-label col-sm-2">Id</label>
-        <div class="col-sm-6">
-            <input class="form-control" formControlName="id">
-        </div>
+    <div class="row">
+        <mat-form-field class="col-4">
+            <mat-label>Id</mat-label>
+            <input matInput formControlName="id">
+        </mat-form-field>
     </div>
 
-    <div class="mb-3 row">
-        <label class="form-label col-sm-2">Title</label>
-        <div class="col-sm-6">
-            <input class="form-control " formControlName="title">
-        </div>
+    <div class="row">
+        <mat-form-field class="col-4">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title">
+        </mat-form-field>
     </div>
 
-    <div class="mb-3 row">
-        <label class="form-label col-sm-2">Description</label>
-        <div class="col-sm-6">
-            <input class="form-control " formControlName="desc">
-        </div>
-
+    <div class="row">
+        <mat-form-field class="col-4">
+            <mat-label>Description</mat-label>
+            <input matInput formControlName="desc">
+        </mat-form-field>
     </div>
-
-    <ng-container formArrayName="questions" class="mb-3 row">
-        <div class="mb-3 row" *ngFor="let qc of questionsControls; let i=index">
-            <label class="form-label col-sm-2">Question {{i+1}}</label>
-            <div class="col-sm-8">
-                <input class="form-control" [formControlName]="i">
-            </div>
+    <div class="row">
+        <div class="col-2">
+            <h3>Questions</h3>
+        </div>        
+        <div class="col">
+            <button mat-button [disabled]="addEnabled" (click)="add()" color="primary">
+                <mat-icon>add</mat-icon>
+            </button>            
+        </div>       
+    </div>
+   
+    <ng-container formArrayName="questions">
+        <div class="row" *ngFor="let qc of questionsControls; let i=index">
+            <mat-form-field class="col">
+                <mat-label>Question {{i+1}}</mat-label>
+                <ng-container [formGroupName]="i">
+                    <textarea matInput formControlName="content"></textarea>
+                </ng-container>
+            </mat-form-field>
         </div>
     </ng-container>
 
-    <div>
-        <button [disabled]="isEditable" class="btn btn-primary" type="button">Save</button>&nbsp;
-        <button [disabled]="isEditable" class="btn btn-success" type="button" (click)="add()">Add</button>
-    </div>
+    <button mat-flat-button color="warn" [disabled]="submitEnabled" (click)="save()" type="button">Save</button>&nbsp;
+    <button mat-flat-button color="warn" (click)="cancel()" type="button">Cancel</button>
 
 
 </form>

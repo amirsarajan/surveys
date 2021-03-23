@@ -4,8 +4,10 @@
         <table mat-table [dataSource]="surveys" *ngIf="surveys.length > 0;else nodata">
             <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef> # </th>
-                <td mat-cell *matCellDef="let element"> <a
-                        [routerLink]="['/authorized','details',element.id]">{{element.id}}</a> </td>
+                <td mat-cell *matCellDef="let element">
+                    <!-- <a [routerLink]="['/authorized','details',element.id]" (click)="openEdit(element)">{{element.id}}</a> -->
+                    <a mat-flat-button (click)="openEdit(element)">{{element.id}}</a>
+                </td>
             </ng-container>
             <ng-container matColumnDef="title">
                 <th mat-header-cell *matHeaderCellDef> title </th>
@@ -29,7 +31,7 @@
 
         <ng-template #nodata> no survey data.</ng-template>
 
-        <button mat-button color="primary">
+        <button mat-button color="primary" (click)="openNew()">
             <mat-icon>add</mat-icon>
         </button>
 

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { CreateSurvey } from '../../models/create-survey';
 import { Survey } from '../../models/survey';
 import { SurveysService } from '../../services/surveys.service';
 
@@ -11,9 +13,10 @@ import { SurveysService } from '../../services/surveys.service';
 })
 export class EditSurveyComponent implements OnInit {
   form: FormGroup;
-  survey: Survey | undefined;
 
   constructor(
+    private dialogRef: MatDialogRef<EditSurveyComponent>,
+    @Inject(MAT_DIALOG_DATA) public survey: Survey,
     private routeSnapshot: ActivatedRoute,
     private surveysService: SurveysService) {
 
@@ -22,45 +25,98 @@ export class EditSurveyComponent implements OnInit {
       title: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       desc: new FormControl('', [Validators.required]),
       questions: new FormArray([], [Validators.required])
-    });  
+    });
+
+    if (survey) {
+      this.updateForm(survey);
+    }
   }
 
-  isEditable(){
-    return !this.survey?.isPublished;
+  get addEnabled() {
+    return this.survey?.isPublished;
   }
-  
+
+  get submitEnabled() {
+    return this.survey?.isPublished;
+  }
+
   get questionsControls() {
     return (this.form.get('questions') as FormArray).controls;
   }
 
   add() {
     (this.form.get('questions') as FormArray)
-      .controls.push(new FormControl(''));
+      // .push(new FormControl('',[Validators.required]));
+      .push(new FormGroup({
+        content: new FormControl('', [Validators.required]),
+        hint: new FormControl(''),
+      }))
   }
 
   ngOnInit(): void {
-    this.routeSnapshot.data.subscribe(
-      d => {
-        if (d && d.survey) {
-          this.survey = d.survey;
-          this.updateForm(d.survey);
-        }
-      }
-    );
+    // this.routeSnapshot.data.subscribe(
+    //   d => {
+    //     if (d && d.survey) {
+    //       this.survey = d.survey;
+    //       this.updateForm(d.survey);
+    //     }
+    //   }
+    // );
   }
 
   updateForm(survey: Survey) {
     this.form.patchValue(survey);
     survey.questions.forEach(q => {
       (this.form.controls.questions as FormArray)
-      .push(new FormControl(q.content))
+        .push(new FormGroup({
+          content: new FormControl(q.content, [Validators.required]),
+          hint: new FormControl(q.hint),
+        }));
     });
 
     if (survey?.isPublished) {
       this.form.disable();
-    }else{
+    } else {
       this.form.enable();
     }
   }
 
+  save() {
+    let newSurvey: Survey = this.form.getRawValue();
+    if (this.form.valid) {
+      if (!this.survey) {
+        this.ceateNewSurvey(newSurvey);
+      } else {
+        this.updateSurvey(newSurvey);
+      }
+    }
+  }
+
+  ceateNewSurvey(newSurvey: CreateSurvey) {
+    this.surveysService.create(newSurvey)
+      .subscribe(
+        () => {
+          this.dialogRef.close(true);
+        },
+        (error) => {
+          // this.dialogRef.close(false);
+        }
+      );
+  }
+
+  updateSurvey(newSurvey: Survey) {
+    // this.surveysService.update(newSurvey)
+    // .subscribe(
+    //   () => {
+    //     this.dialogRef.close(true);
+    //   },
+    //   (error) => {
+    //     // this.dialogRef.close(false);
+    //   }
+    // );
+  }
+
+  cancel() {
+    this.dialogRef.close(true);
+  }
 }

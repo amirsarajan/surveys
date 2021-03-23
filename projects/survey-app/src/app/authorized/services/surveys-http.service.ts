@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Survey } from '../models/survey';
 import { environment } from '../../../environments/environment';
 import { SurveyTitle } from '../models/survey-title';
+import { CreateSurvey } from '../models/create-survey';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +29,8 @@ export class SurveysHttpService {
     });
   }
 
-  create(survey: Survey): Observable<Survey> {
-    return this.client.post<Survey>('${environment.baseUrl}/surveys', survey, {
+  create(createSurvey: CreateSurvey): Observable<Survey> {
+    return this.client.post<Survey>(`${environment.baseUrl}/surveys`, createSurvey, {
       headers: new HttpHeaders({
         "Content-Type": 'application/json'
       })

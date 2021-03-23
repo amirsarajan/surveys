@@ -53,6 +53,9 @@ let reoutes: Routes = [
     HttpClientModule,
     MaterialImportModule
   ],
+  entryComponents:[
+    EditSurveyComponent
+  ],
   exports: [
     RouterModule
   ],

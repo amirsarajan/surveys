@@ -36,10 +36,12 @@ export class IdentityService {
 
   public get auth$(): Observable<AuthInfo> {
     return this.authStore.auth$;
-  } 
+  }
 
   isLoggedin$(): Observable<boolean> {
-    return this.auth$.pipe(map((auth) => this.isValid(auth)));
+    return this.auth$.pipe(
+      map((auth) => this.isValid(auth))
+    );
   }
 
   restore() {
