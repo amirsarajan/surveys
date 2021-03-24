@@ -4,10 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { filter, switchMap, tap } from 'rxjs/operators';
 import { AuthStoreService } from '../../../services/store.service';
-import { SurveyTitle } from '../../models/survey-title';
-import { SurveysStoreService } from '../../services/surveys-store.service';
-import { SurveysService } from '../../services/surveys.service';
+import { SurveyTitle } from '../../../models/survey-title';
+import { SurveysService } from '../../../services/surveys.service';
 import { EditSurveyComponent } from '../edit-survey/edit-survey.component';
+import { SurveysStoreService } from '../../../services/surveys-store.service';
 
 @Component({
   selector: 'app-surveys',

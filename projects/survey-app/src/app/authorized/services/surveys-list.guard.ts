@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Resolve } from '@angular/router';
-import { EMPTY, Observable } from 'rxjs';
-import { filter, first, map, switchMap } from 'rxjs/operators';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from '@angular/router';
+import { Observable } from 'rxjs';
+import { first, switchMap } from 'rxjs/operators';
 import { IdentityService } from '../../services/identity.service';
-import { Survey } from '../models/survey';
-import { SurveyTitle } from '../models/survey-title';
-import { SurveysStoreService } from './surveys-store.service';
-import { SurveysService } from './surveys.service';
+import { SurveyTitle } from '../../models/survey-title';
+import { SurveysService } from '../../services/surveys.service';
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Survey } from '../../models/survey';
-import { SurveyTitle } from '../../models/survey-title';
+import { Survey } from '../../../models/survey';
+import { SurveyTitle } from '../../../models/survey-title';
 
 @Component({
   selector: 'app-survey-info',

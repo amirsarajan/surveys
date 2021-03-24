@@ -8,6 +8,7 @@ import { SignupComponent } from './signup/signup.component';
 import { PublicContainerComponent } from './public-container/public-container.component';
 import { RedirectAuthorizedGuard as RedirectIfAuthorizedGuard } from '../services/guards/redirect-authorized.guard';
 import { MaterialImportModule } from '../material-import.module';
+import { PublicSurveysGuard } from '../services/public-surveys.guard';
 
 
 const routes: Routes = [
@@ -18,6 +19,9 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        resolve:{
+          publicSurveys:PublicSurveysGuard
+        },
         component: HomeComponent,
       },
       {

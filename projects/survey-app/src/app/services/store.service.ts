@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
-import { AuthInfo } from './models/auth-info';
+import { AuthInfo } from '../models/auth-info';
 
 // type StoreType<Type> = {
 //   [p in keyof Type]: ReplaySubject<Type[p]>;

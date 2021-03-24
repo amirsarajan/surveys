@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { from, of, Subject, Observable, BehaviorSubject, EMPTY } from 'rxjs';
 import { delay, filter, map, switchMap } from 'rxjs/operators';
-import { AuthInfo } from './models/auth-info';
-import { User } from './models/user';
-import { UserInfo } from './models/user-info';
+import { AuthInfo } from '../models/auth-info';
+import { User } from '../models/user';
+import { UserInfo } from '../models/user-info';
 import { AuthStoreService } from './store.service';
 
 let users: User[] = [

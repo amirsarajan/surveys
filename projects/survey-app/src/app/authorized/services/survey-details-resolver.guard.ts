@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
-import { Survey } from '../models/survey';
-import { SurveysService } from './surveys.service';
+import { Survey } from '../../models/survey';
+import { SurveysService } from '../../services/surveys.service';
 
 @Injectable({
   providedIn: 'root'

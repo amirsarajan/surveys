@@ -3,8 +3,8 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { CreateSurvey } from '../../models/create-survey';
-import { Survey } from '../../models/survey';
-import { SurveysService } from '../../services/surveys.service';
+import { Survey } from '../../../models/survey';
+import { SurveysService } from '../../../services/surveys.service';
 
 @Component({
   selector: 'app-edit-survey',

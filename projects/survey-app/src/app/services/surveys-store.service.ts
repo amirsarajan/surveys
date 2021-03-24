@@ -10,12 +10,18 @@ export class SurveysStoreService {
  
   protected _surveys:SurveyTitle[] = [];
   protected _surveys$: BehaviorSubject<SurveyTitle[]> = new BehaviorSubject<SurveyTitle[]>([]);
+  protected _publicSurveys:SurveyTitle[] = [];
+  protected _publicSurveys$: BehaviorSubject<SurveyTitle[]> = new BehaviorSubject<SurveyTitle[]>([]);
   protected _currentSurvey$: BehaviorSubject<Survey | undefined> = new BehaviorSubject<Survey | undefined>(undefined);
 
   get surveys$() {
     return this._surveys$;
   }
 
+  get publicSurveys$() {
+    return this._publicSurveys$;
+  }
+  
   get currentSurvey$() {
     return this._currentSurvey$;
   }
@@ -23,6 +29,11 @@ export class SurveysStoreService {
   updateSurveys(surveys: SurveyTitle[]) {
     this._surveys = surveys;
     this._surveys$.next(this._surveys);
+  }
+
+  updatePublicSurveys(surveys: SurveyTitle[]) {
+    this._publicSurveys = surveys;
+    this._publicSurveys$.next(this._publicSurveys);
   }
 
   updateCurrentSurvey(survey: Survey) {
